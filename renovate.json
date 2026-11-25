@@ -12,6 +12,24 @@
       "matchFileNames": ["frontend/**"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "frontend (minor/patch)"
+    },
+    {
+      "description": "Node.js : même PR pour l'image Docker et la CI (setup-node)",
+      "matchPackageNames": ["node"],
+      "groupName": "Node.js"
+    },
+    {
+      "description": "Image Docker Node.js : versions paires (LTS) uniquement, digest épinglé",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "allowedVersions": "/^[0-9]*[02468]\\./",
+      "pinDigests": true
+    },
+    {
+      "description": "Garder npm 11 pour les lockfiles : npm 12 échoue (EALLOWREMOTE)",
+      "matchManagers": ["renovate-config"],
+      "matchPackageNames": ["npm"],
+      "enabled": false
     }
   ]
 }

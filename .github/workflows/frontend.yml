@@ -34,3 +34,22 @@ jobs:
       - run: npm run lint
       # Le build Next.js vérifie aussi les types TypeScript
       - run: npm run build
+
+  docker:
+    name: Image Docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Build de l'image
+        run: docker build -t frontend:ci .
+      - name: Test de démarrage du conteneur
+        run: |
+          docker run -d --name frontend -p 3000:3000 frontend:ci
+          for i in $(seq 1 30); do
+            curl -fs -o /dev/null http://localhost:3000/ && break
+            sleep 1
+          done
+          curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' http://localhost:3000/
+      - name: Logs du conteneur
+        if: always()
+        run: docker logs frontend || true

@@ -1,0 +1,18 @@
+# Dépendances et builds locaux : réinstallés / reconstruits dans l'image
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+
+# Fichiers inutiles dans l'image
+.git
+.gitignore
+Dockerfile
+.dockerignore
+README.md
+AGENTS.md
+npm-debug.log*
+
+# Secrets locaux
+.env*
