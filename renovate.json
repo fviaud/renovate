@@ -3,6 +3,9 @@
   "extends": ["config:recommended"],
   "timezone": "Europe/Paris",
   "labels": ["dependencies"],
+  "constraints": {
+    "npm": "^11"
+  },
   "packageRules": [
     {
       "description": "Regrouper les mises à jour mineures et correctives du frontend",
