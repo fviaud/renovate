@@ -2,8 +2,9 @@ name: Renovate
 
 on:
   schedule:
-    # Toutes les heures (le "*" doit être entre guillemets en YAML)
-    - cron: '0 * * * *'
+    # Une fois par jour à 04:17 UTC (05:17 à Paris l'hiver, 06:17 l'été).
+    # Minute décalée : GitHub retarde davantage les tâches lancées à l'heure pile.
+    - cron: '17 4 * * *'
   workflow_dispatch:
     inputs:
       logLevel:
