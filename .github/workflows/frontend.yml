@@ -1,15 +1,11 @@
 name: Frontend
 
+# Pas de filtre de chemins : "Lint et build" doit se lancer sur toutes les PR
+# pour pouvoir être un check obligatoire de la protection de main.
 on:
   push:
     branches: [main]
-    paths:
-      - frontend/**
-      - .github/workflows/frontend.yml
   pull_request:
-    paths:
-      - frontend/**
-      - .github/workflows/frontend.yml
 
 concurrency:
   group: frontend-${{ github.ref }}
