@@ -14,15 +14,25 @@
       "groupName": "frontend (minor/patch)"
     },
     {
-      "description": "Node.js : même PR pour l'image Docker et la CI (setup-node)",
-      "matchPackageNames": ["node"],
+      "description": "Node.js : même PR pour l'image Docker et la CI (setup-node). matchDepNames car le packageName de setup-node est actions/node-versions",
+      "matchDepNames": ["node"],
       "groupName": "Node.js"
     },
     {
-      "description": "Image Docker Node.js : versions paires (LTS) uniquement, digest épinglé",
+      "description": "@types/node suit la version majeure de Node.js",
+      "matchDepNames": ["@types/node"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "Node.js"
+    },
+    {
+      "description": "Node.js : versions paires (LTS) uniquement",
+      "matchDepNames": ["node", "@types/node"],
+      "allowedVersions": "/^[0-9]*[02468](\\.|$)/"
+    },
+    {
+      "description": "Image Docker Node.js : digest épinglé",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["node"],
-      "allowedVersions": "/^[0-9]*[02468]\\./",
+      "matchDepNames": ["node"],
       "pinDigests": true
     },
     {
