@@ -26,6 +26,11 @@
       "pinDigests": true
     },
     {
+      "description": "TypeScript 7 : bloqué tant que typescript-eslint (eslint-config-next) ne le supporte pas",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
       "description": "Garder npm 11 pour les lockfiles : npm 12 échoue (EALLOWREMOTE)",
       "matchManagers": ["renovate-config"],
       "matchPackageNames": ["npm"],
