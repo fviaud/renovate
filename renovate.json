@@ -6,6 +6,7 @@
   "constraints": {
     "npm": "^11"
   },
+  "platformAutomerge": true,
   "packageRules": [
     {
       "description": "Regrouper les mises à jour mineures et correctives du frontend",
@@ -45,6 +46,11 @@
       "matchManagers": ["renovate-config"],
       "matchPackageNames": ["npm"],
       "enabled": false
+    },
+    {
+      "description": "Automerge des mises à jour correctives, une fois les checks obligatoires de main verts",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     }
   ]
 }
