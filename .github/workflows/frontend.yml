@@ -45,9 +45,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Build de l'image
-        # Le label "source" relie le package ghcr.io à ce dépôt
+        # Le label "source" relie le package ghcr.io à ce dépôt.
+        # --provenance=false : un seul manifeste par image, sans attestation
+        # séparée (qui apparaît comme une version "untagged" sur ghcr.io et
+        # casse l'image si on la supprime).
         run: |
-          docker build -t frontend:ci \
+          docker build -t frontend:ci --provenance=false \
             --label org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }} \
             --label org.opencontainers.image.revision=${{ github.sha }} \
             .
