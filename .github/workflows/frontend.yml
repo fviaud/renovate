@@ -78,3 +78,11 @@ jobs:
             docker push "$IMAGE:$TAG"
           done
           echo "Image publiée : $IMAGE (tags latest et sha-${GITHUB_SHA::7})" >> "$GITHUB_STEP_SUMMARY"
+      - name: Nettoyage des anciennes images sur ghcr.io
+        # Garde les 10 versions les plus récentes (dont latest), supprime les plus anciennes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: renovate-frontend
+          package-type: container
+          min-versions-to-keep: 10
