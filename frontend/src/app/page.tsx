@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,7 +24,9 @@ export default function Home() {
           </p>
         </CardContent>
         <CardFooter className="gap-2">
-          <Button>Commencer</Button>
+          <Button asChild>
+            <Link href="/dashboard">Commencer</Link>
+          </Button>
           <Button variant="outline">En savoir plus</Button>
         </CardFooter>
       </Card>
