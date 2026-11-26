@@ -38,10 +38,19 @@ jobs:
   docker:
     name: Image Docker
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Publication de l'image sur ghcr.io (uniquement sur main, voir plus bas)
+      packages: write
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Build de l'image
-        run: docker build -t frontend:ci .
+        # Le label "source" relie le package ghcr.io à ce dépôt
+        run: |
+          docker build -t frontend:ci \
+            --label org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }} \
+            --label org.opencontainers.image.revision=${{ github.sha }} \
+            .
       - name: Test de démarrage du conteneur
         run: |
           docker run -d --name frontend -p 3000:3000 frontend:ci
@@ -53,3 +62,16 @@ jobs:
       - name: Logs du conteneur
         if: always()
         run: docker logs frontend || true
+      - name: Publication sur ghcr.io
+        # Uniquement après un push sur main : jamais sur les PR (dont Renovate)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/renovate-frontend"
+          echo "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          for TAG in latest "sha-${GITHUB_SHA::7}"; do
+            docker tag frontend:ci "$IMAGE:$TAG"
+            docker push "$IMAGE:$TAG"
+          done
+          echo "Image publiée : $IMAGE (tags latest et sha-${GITHUB_SHA::7})" >> "$GITHUB_STEP_SUMMARY"
