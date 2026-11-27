@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +14,9 @@ import {
 export default function Home() {
   return (
     <main className="flex flex-1 items-center justify-center p-6">
+      <div className="fixed top-4 right-4">
+        <ModeToggle />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Renovate</CardTitle>

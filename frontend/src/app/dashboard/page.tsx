@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 
 import { AppSidebar } from "@/components/dashboard/app-sidebar"
+import { ModeToggle } from "@/components/mode-toggle"
 import { OrdersTable } from "@/components/dashboard/orders-table"
 import { StatsCards } from "@/components/dashboard/stats-cards"
 import {
@@ -41,6 +42,9 @@ export default function DashboardPage() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
+          <div className="ml-auto">
+            <ModeToggle />
+          </div>
         </header>
 
         <main className="flex flex-1 flex-col gap-6 p-4 md:p-6">
